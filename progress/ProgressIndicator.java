@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.progress;
 
 import java.util.logging.Level;
@@ -19,16 +14,32 @@ public class ProgressIndicator {
     private final String message;
     private volatile boolean stopIndicator = false;
 
+    /**
+     * Construct ProgressIndicator.
+     * @param msg Message to display with progress indicator
+     * @param echo character will be displayed as progress
+     * @param repeat how many times will be repeated as progress. 
+     *               It should be greater than 1.
+     */
     ProgressIndicator(String msg, char echo, int repeat) {
         this.echochar = echo;
         this.repeat = repeat;
         this.message = msg;
     }
 
+    /**
+     * Construct ProgressIndicator.
+     * @param echo character will be displayed as progress
+     * @param repeat how many times will be repeated as progress. 
+     *               It should be greater than 1.
+     */
     ProgressIndicator(char echo, int repeat) {
         this("", echo, repeat);
     }
 
+    /**
+     * Start progress indicator.
+     */
     public void printProgress() {
         int counter = 0;
 
@@ -42,6 +53,7 @@ public class ProgressIndicator {
                     } catch (InterruptedException ex) {
                         Logger.getLogger(ProgressIndicator.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                    //echo character
                     System.out.print(echochar + " ");
                     counter++;
                 }
@@ -52,7 +64,7 @@ public class ProgressIndicator {
                 }
 
                 while (counter > 0) {
-
+                    //clean up
                     System.out.print("\010 \010");
                     System.out.print("\010 \010");
                     counter--;
@@ -63,10 +75,16 @@ public class ProgressIndicator {
         }
     }
 
+    /**
+     * Stop progress indicator.
+     */
     public void stopIndicator() {
         stopIndicator = true;
     }
 
+    /**
+     * Cleanup everything at the end.
+     */
     private void cleanUp() {
         int counter = 0;
         int len = message == null ? 0 : message.length();

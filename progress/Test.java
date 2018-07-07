@@ -17,11 +17,14 @@ public class Test {
     public static void main(String[] args) {
         ProgressIndicator progress = new ProgressIndicator("In Progress ", '*', 5);
         new Thread() {
+            @Override
             public void run() {
                 progress.printProgress();
             }
         }.start();
+        
         new Thread() {
+            @Override
             public void run() {
                 try {
                     Thread.sleep(5000);
